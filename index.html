@@ -1,0 +1,36 @@
+i<!DOCTYPE html>
+<html>
+<head>
+	<title>Glucose Level Predictor</title>
+</head>
+<body>
+	<h1>Glucose Level Predictor</h1>
+	<form action="/predict" method="post">
+		<label for="Age">Age:</label>
+		<input type="text" id="Age" name="Age">
+		<br><br>
+		<input type="submit" value="Predict">
+	</form>
+	<div id="result"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			$('form').on('submit', function(event) {
+				event.preventDefault();
+				$.ajax({
+					url: '/predict',
+					data: $('form').serialize(),
+					type: 'POST',
+					success: function(response) {
+						$('#result').text('Predicted glucose level: ' + response);
+					},
+					error: function(error) {
+						console.log(error);
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
+
